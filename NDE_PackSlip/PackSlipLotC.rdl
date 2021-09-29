@@ -1,0 +1,384 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="dsPSInvoice">
+      <DataSourceReference>/ERPProd/reports/SharedReportDataSource</DataSourceReference>
+      <rd:SecurityType>Integrated</rd:SecurityType>
+      <rd:DataSourceID>b87cb7cc-2e91-49b3-8faa-6f7809417090</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="PackSlipLot">
+      <Query>
+        <DataSourceName>dsPSInvoice</DataSourceName>
+        <CommandText>="SELECT T1.PackLine,T3.RptLiteralsLLotNo,T3.RptLiteralsLCountryOrigin,T3.RptLiteralsLblShpdQty,T1.PartNum,T1.Company,T1.PackNum,T1.LotNum,T1.Calc_DspLineShpQty,T2.Description
+ FROM ShipHead_" + Parameters!TableGuid.Value + " T4
+ LEFT OUTER JOIN ShipDtl_" + Parameters!TableGuid.Value + " T1
+ ON T4.Company = T1.Company AND T1.PackNum = T4.PackNum LEFT OUTER JOIN Country_" + Parameters!TableGuid.Value + " T2
+  ON T1.Company = T2.Company AND T1.Lot_ISOrigCountryNum_c = T2.CountryNum LEFT OUTER JOIN RptLabels_" + Parameters!TableGuid.Value + " T3
+  ON T3.RptLanguageID = T4.RptLanguageID"</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="Company">
+          <DataField>Company</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PackNum">
+          <DataField>PackNum</DataField>
+          <rd:UserDefined>true</rd:UserDefined>
+        </Field>
+        <Field Name="LotNum">
+          <DataField>LotNum</DataField>
+          <rd:UserDefined>true</rd:UserDefined>
+        </Field>
+        <Field Name="Calc_DspLineShpQty">
+          <DataField>Calc_DspLineShpQty</DataField>
+          <rd:UserDefined>true</rd:UserDefined>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+          <rd:UserDefined>true</rd:UserDefined>
+        </Field>
+        <Field Name="RptLiteralsLLotNo">
+          <DataField>RptLiteralsLLotNo</DataField>
+          <rd:UserDefined>true</rd:UserDefined>
+        </Field>
+        <Field Name="RptLiteralsLCountryOrigin">
+          <DataField>RptLiteralsLCountryOrigin</DataField>
+          <rd:UserDefined>true</rd:UserDefined>
+        </Field>
+        <Field Name="RptLiteralsLblShpdQty">
+          <DataField>RptLiteralsLblShpdQty</DataField>
+          <rd:UserDefined>true</rd:UserDefined>
+        </Field>
+        <Field Name="PartNum">
+          <DataField>PartNum</DataField>
+          <rd:UserDefined>true</rd:UserDefined>
+        </Field>
+        <Field Name="PackLine">
+          <DataField>PackLine</DataField>
+          <rd:UserDefined>true</rd:UserDefined>
+        </Field>
+      </Fields>
+      <Filters>
+        <Filter>
+          <FilterExpression>=Fields!Company.Value</FilterExpression>
+          <Operator>Equal</Operator>
+          <FilterValues>
+            <FilterValue>=Parameters!Company.Value</FilterValue>
+          </FilterValues>
+        </Filter>
+        <Filter>
+          <FilterExpression>=Fields!PartNum.Value</FilterExpression>
+          <Operator>Equal</Operator>
+          <FilterValues>
+            <FilterValue>=Parameters!PartNum.Value</FilterValue>
+          </FilterValues>
+        </Filter>
+      </Filters>
+    </DataSet>
+  </DataSets>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <ReportItems>
+          <Tablix Name="Tablix4">
+            <TablixBody>
+              <TablixColumns>
+                <TablixColumn>
+                  <Width>4.80375in</Width>
+                </TablixColumn>
+              </TablixColumns>
+              <TablixRows>
+                <TablixRow>
+                  <Height>0.20264in</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Rectangle Name="Rectangle2">
+                          <ReportItems>
+                            <Textbox Name="LblInvNumber2">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=First(Fields!RptLiteralsLLotNo.Value, "PackSlipLot")</Value>
+                                      <Style>
+                                        <FontFamily>Arial Unicode MS</FontFamily>
+                                        <FontWeight>Bold</FontWeight>
+                                        <TextDecoration>Underline</TextDecoration>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <Top>0.0075in</Top>
+                              <Left>0.12167in</Left>
+                              <Height>0.19514in</Height>
+                              <Width>1.14583in</Width>
+                              <Style>
+                                <Border />
+                              </Style>
+                            </Textbox>
+                            <Textbox Name="LblInvNumber3">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=First(Fields!RptLiteralsLCountryOrigin.Value, "PackSlipLot")</Value>
+                                      <Style>
+                                        <FontFamily>Arial Unicode MS</FontFamily>
+                                        <FontWeight>Bold</FontWeight>
+                                        <TextDecoration>Underline</TextDecoration>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <Top>0.0075in</Top>
+                              <Left>2.7757in</Left>
+                              <Height>0.19514in</Height>
+                              <Width>1.98264in</Width>
+                              <ZIndex>1</ZIndex>
+                              <Style>
+                                <Border />
+                              </Style>
+                            </Textbox>
+                            <Textbox Name="LblInvNumber4">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=First(Fields!RptLiteralsLblShpdQty.Value, "PackSlipLot")</Value>
+                                      <Style>
+                                        <FontFamily>Arial Unicode MS</FontFamily>
+                                        <FontWeight>Bold</FontWeight>
+                                        <TextDecoration>Underline</TextDecoration>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <Top>0.0075in</Top>
+                              <Left>1.6507in</Left>
+                              <Height>0.19514in</Height>
+                              <Width>1.03659in</Width>
+                              <ZIndex>2</ZIndex>
+                              <Style>
+                                <Border />
+                              </Style>
+                            </Textbox>
+                          </ReportItems>
+                          <KeepTogether>true</KeepTogether>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                          </Style>
+                        </Rectangle>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.12in</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Rectangle Name="Rectangle1">
+                          <ReportItems>
+                            <Textbox Name="LblInvNumber">
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Fields!LotNum.Value</Value>
+                                      <Style>
+                                        <FontFamily>Arial Unicode MS</FontFamily>
+                                        <FontSize>7pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <Left>0.10417in</Left>
+                              <Height>0.12in</Height>
+                              <Width>1.42292in</Width>
+                              <Style>
+                                <Border />
+                              </Style>
+                            </Textbox>
+                            <Textbox Name="LblLegNum">
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Fields!Description.Value</Value>
+                                      <Style>
+                                        <FontFamily>DataWorks Bar 39</FontFamily>
+                                        <FontSize>8pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <Left>1.22569in</Left>
+                              <Height>0.01042in</Height>
+                              <Width>1.33334in</Width>
+                              <ZIndex>1</ZIndex>
+                              <Visibility>
+                                <Hidden>true</Hidden>
+                              </Visibility>
+                              <Style>
+                                <Border />
+                                <BackgroundColor>Red</BackgroundColor>
+                              </Style>
+                            </Textbox>
+                            <Textbox Name="TxtLegalNumber">
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=IIF(LEN(Fields!Description.Value)=0 , Parameters!Default_CoO.Value, Fields!Description.Value)</Value>
+                                      <Style>
+                                        <FontFamily>Arial Unicode MS</FontFamily>
+                                        <FontSize>7pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <Left>2.7757in</Left>
+                              <Height>0.12in</Height>
+                              <Width>1.98264in</Width>
+                              <ZIndex>2</ZIndex>
+                              <Style>
+                                <Border />
+                              </Style>
+                            </Textbox>
+                            <Textbox Name="TxtInvNumber">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=formatnumber(Fields!Calc_DspLineShpQty.Value,2)</Value>
+                                      <Style>
+                                        <FontFamily>Arial Unicode MS</FontFamily>
+                                        <FontSize>7pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <Left>1.6507in</Left>
+                              <Height>0.12in</Height>
+                              <Width>0.83333in</Width>
+                              <ZIndex>3</ZIndex>
+                              <Style>
+                                <Border />
+                              </Style>
+                            </Textbox>
+                          </ReportItems>
+                          <KeepTogether>true</KeepTogether>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                          </Style>
+                        </Rectangle>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+              </TablixRows>
+            </TablixBody>
+            <TablixColumnHierarchy>
+              <TablixMembers>
+                <TablixMember />
+              </TablixMembers>
+            </TablixColumnHierarchy>
+            <TablixRowHierarchy>
+              <TablixMembers>
+                <TablixMember>
+                  <KeepWithGroup>After</KeepWithGroup>
+                </TablixMember>
+                <TablixMember>
+                  <Group Name="Details" />
+                </TablixMember>
+              </TablixMembers>
+            </TablixRowHierarchy>
+            <DataSetName>PackSlipLot</DataSetName>
+            <Top>0.01958in</Top>
+            <Height>0.32264in</Height>
+            <Width>4.80375in</Width>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Tablix>
+        </ReportItems>
+        <Height>0.34222in</Height>
+        <Style />
+      </Body>
+      <Width>4.84334in</Width>
+      <Page>
+        <LeftMargin>0.21in</LeftMargin>
+        <RightMargin>0.22in</RightMargin>
+        <TopMargin>0.25in</TopMargin>
+        <BottomMargin>0.1in</BottomMargin>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="TableGuid">
+      <DataType>String</DataType>
+      <Prompt>TableGuid</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Company">
+      <DataType>String</DataType>
+      <Prompt>Company</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PartNum">
+      <DataType>String</DataType>
+      <Prompt>PartNum</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="PartNum_LotCoOReq_c">
+      <DataType>String</DataType>
+      <Prompt>PartNum_LotCoOReq_c</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Default_CoO">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Default_CoO</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportServerUrl>http://thorin/ReportServer</rd:ReportServerUrl>
+  <rd:ReportID>9fcd03ec-b795-4f60-85f6-7aa2e2ae5364</rd:ReportID>
+</Report>
